@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+		
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.user">sa</property>
+		<property name="connection.password"></property>
+		<property name="connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=ZhongLeiHock</property>
+		<property name="connection.driver_class">com.microsoft.jdbc.sqlserver.SQLServerDriver</property>
+		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+		<property name="hibernate.jdbc.batch_size">12</property>
+		<property name="hibernate.cache.provider_class">
+			org.hibernate.cache.EhCacheProvider
+		</property>
+		<property name="hibernate.connection.provider_class">
+			org.hibernate.connection.C3P0ConnectionProvider
+		</property>
+		
+		<property name="hibernate.connection.autocommit">True</property>
+		<property name="hibernate.c3p0.max_size">16</property>
+		<property name="hibernate.c3p0.min_size">1</property>
+		<property name="hibernate.c3p0.initial_pool_size">1</property>
+		<property name="hibernate.c3p0.timeout">0</property>
+		<property name="hibernate.c3p0.maxstatements">100</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+		<property name="hibernate.c3p0.acquire_increment">2</property>
+		<property name="hibernate.c3p0.validate">True</property>
+		
+		<property name="hibernate.show_sql">True</property>
+		<property name="hibernate.use_sql_comments">True</property>
+		<property name="hibernate.hbm2ddl.auto">console+update</property>
+		
+		<!--property name="hibernate.hbm2ddl.auto">create</property-->
+		
+		
+		
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/Pawncheck.hbm.xml" />
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/Loan.hbm.xml" />
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/Clerk.hbm.xml" />
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/Customer.hbm.xml" />
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/Goods.hbm.xml" />
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/Loan_class.hbm.xml" />
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/Record.hbm.xml" />
+		<mapping resource="cn/artern/JAVAEE4ZLHock/model/PawncheckNO.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

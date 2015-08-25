@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+ http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+ http://www.springframework.org/schema/aop
+ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd ">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <!--annotation.AnnotationSessionFactoryBean-->
+		<property name="configLocation">
+			<value>
+                /WEB-INF/hibernate.cfg.xml
+            </value>
+		</property>
+	</bean>
+	<bean id="daoTemplate" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">
+                    PROPAGATION_REQUIRED
+                </prop>
+				<prop key="save*">
+                    PROPAGATION_REQUIRED
+                </prop>
+				<prop key="crate*">
+                    PROPAGATION_REQUIRED
+                </prop>
+				<prop key="update*">
+                    PROPAGATION_REQUIRED
+                </prop>
+				<prop key="*">
+                    PROPAGATION_REQUIRED,readOnly
+                </prop>
+			</props>
+		</property>
+	</bean>
+    
+    
+    
+    
+    <!-- DAO -->
+	<bean id="clerkDao" class="cn.artern.JAVAEE4ZLHock.dao.impl.ClerkDaoHibernate"
+		parent="daoTemplate">
+		<property name="md5" ref="MD5" />
+	</bean>
+	<bean id="customerDao" class="cn.artern.JAVAEE4ZLHock.dao.impl.CustomerDaoHibernate"
+		parent="daoTemplate" />
+	<bean id="goodsDao" class="cn.artern.JAVAEE4ZLHock.dao.impl.GoodsDaoHibernate"
+		parent="daoTemplate" />
+	<bean id="loan_classDao" class="cn.artern.JAVAEE4ZLHock.dao.impl.Loan_classDaoHibernate"
+		parent="daoTemplate" />
+	<bean id="loanDao" class="cn.artern.JAVAEE4ZLHock.dao.impl.LoanDaoHibernate"
+		parent="daoTemplate" />
+	<bean id="pawncheckDao" class="cn.artern.JAVAEE4ZLHock.dao.impl.PawncheckDaoHibernate"
+		parent="daoTemplate" />
+	<bean id="recordDao" class="cn.artern.JAVAEE4ZLHock.dao.impl.RecordDaoHibernate"
+		parent="daoTemplate" />
+	<bean id="pawncheckNODao"
+		class="cn.artern.JAVAEE4ZLHock.dao.impl.PawncheckNODaoHibernate"
+		parent="daoTemplate" />
+    
+    <!--cn.artern.tools-->
+	<bean id="MD5" class="cn.artern.tools.MD5.MD5Impl">
+		<property name="secString" ref="secString" />
+	</bean>
+	<bean id="secString" class="cn.artern.tools.MD5.SecStringImpFromPhysicalAddress"
+		scope="singleton" />
+    
+    <!--service-->
+	<bean id="operatorManager"
+		class="cn.artern.JAVAEE4ZLHock.service.impl.OperatorManagerImpl">
+		<property name="clerkDao" ref="clerkDao" />
+		<property name="customerDao" ref="customerDao" />
+		<property name="goodsDao" ref="goodsDao" />
+		<property name="loan_classDao" ref="loan_classDao" />
+		<property name="loanDao" ref="loanDao" />
+		<property name="pawncheckDao" ref="pawncheckDao" />
+		<property name="recordDao" ref="recordDao" />
+		<property name="pawncheckNODao" ref="pawncheckNODao" />
+		<property name="printer" ref="defPrinter" />
+	</bean>
+	<bean id="adminManager" class="cn.artern.JAVAEE4ZLHock.service.impl.AdminManagerImpl">
+		<property name="clerkDao" ref="clerkDao" />
+		<property name="customerDao" ref="customerDao" />
+		<property name="goodsDao" ref="goodsDao" />
+		<property name="loan_classDao" ref="loan_classDao" />
+		<property name="loanDao" ref="loanDao" />
+		<property name="pawncheckDao" ref="pawncheckDao" />
+		<property name="recordDao" ref="recordDao" />
+		<property name="pawncheckNODao" ref="pawncheckNODao" />
+	</bean>
+	<bean id="login" class="cn.artern.JAVAEE4ZLHock.service.impl.LoginImpl">
+		<property name="clerkDao" ref="clerkDao" />
+	</bean>
+    
+    <!--action-->
+	<bean id="loginAction"
+		class="cn.artern.JAVAEE4ZLHock.action.base.LoginCheckIPFromConf">
+		<property name="allowedIp">
+			<set>
+				<value>127.0.0.1</value>
+			</set>
+		</property>
+	</bean>
+	<bean id="processLoginAction" class="cn.artern.JAVAEE4ZLHock.action.base.ProcessLogin">
+		<property name="login" ref="login" />
+	</bean>
+	<bean id="loginSuccess" class="cn.artern.JAVAEE4ZLHock.action.base.Login">
+		<property name="clerkDao" ref="clerkDao" />
+	</bean>
+	<bean id="createFirst" class="cn.artern.JAVAEE4ZLHock.action.operator.AddPawncheck">
+		<property name="operatorManager" ref="operatorManager" />
+	</bean>
+	<bean id="redeemPawncheck" class="cn.artern.JAVAEE4ZLHock.action.operator.RedeemPawncheck">
+		<property name="operatorManager" ref="operatorManager" />
+	</bean>
+	<bean id="getByMonth" class="cn.artern.JAVAEE4ZLHock.action.admin.GetTable">
+		<property name="adminManager" ref="adminManager" />
+	</bean>
+	<bean id="addUser" class="cn.artern.JAVAEE4ZLHock.action.admin.AddUser">
+		<property name="adminManager" ref="adminManager" />
+	</bean>
+	<bean id="soldAction" class="cn.artern.JAVAEE4ZLHock.action.admin.SoldGoods">
+		<property name="adminManager" ref="adminManager" />
+	</bean>
+    <!--AOP-->
+	<bean id="Aspect" class="cn.artern.JAVAEE4ZLHock.AOP.LoginAop">
+		<property name="adminManager" ref="adminManager" />
+	</bean>
+	<aop:aspectj-autoproxy />
+    <!--printer and preview-->
+	<bean id="defPrinter" class="cn.artern.tools.Printer.DefPrinter">
+		<property name="drawCurrentPageText" ref="operatorManager" />
+	</bean>
+</beans>

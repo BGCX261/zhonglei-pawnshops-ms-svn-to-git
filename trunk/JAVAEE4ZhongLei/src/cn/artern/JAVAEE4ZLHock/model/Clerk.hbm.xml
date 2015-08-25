@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    	
+<hibernate-mapping package="cn.artern.JAVAEE4ZLHock.model">
+	<class name="Clerk" table="clerk">
+		<id	name="id" type="integer">
+			<generator class="native"/>
+		</id>
+		
+		<property name="name"	type="string" not-null="true" length="50"	/>
+		<property name="power"	type="string" not-null="true" length="50"/>
+		<property name="psw"	type="string" not-null="true" length="50"	/>
+		<property name="checks"	type="string" not-null="true" length="50"	/>
+		
+		<set name="pawncheck" inverse="true" >
+			<key column="clerk_id"/>
+			<one-to-many class="Pawncheck" />
+		</set>
+		<set name="record" inverse="true" >
+			<key column="operator"/>
+			<one-to-many class="Record" />
+		</set>
+	</class>
+</hibernate-mapping>
+		

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="JAVAEE4ZhongLei"
+  id="myeclipse.1231993567312"
+  context-root="/JAVAEE4ZhongLei"
+  j2ee-spec="5.0"
+  archive="JAVAEE4ZhongLei.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

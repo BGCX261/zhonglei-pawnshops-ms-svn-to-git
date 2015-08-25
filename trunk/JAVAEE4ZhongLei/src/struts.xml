@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+ "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.i18n.encoding" value="utf-8"/>
+    <constant name="struts.objectFactory.spring.autoWire" value="byName"/>
+    <constant name="struts.objectFactory" value="spring"/>
+    <package name="ZL_login" extends="struts-default">
+        <global-results>
+            <result name="login">
+                /WEB-INF/JSP/login.jsp
+            </result>
+            <result name="exception">
+                /WEB-INF/JSP/error.jsp
+            </result>
+            <result name="error">
+                /WEB-INF/JSP/error.jsp
+            </result>
+        </global-results>
+        
+        <global-exception-mappings>
+            <exception-mapping exception="cn.artern.JAVAEE$ZLHock.exception" result="exception"/>
+            <exception-mapping exception="java.lang.Exception" result="exception"/>
+        </global-exception-mappings>
+        
+        <action name="login" class="loginAction"/>
+        <action name="processLogin" class="processLoginAction">
+            <result name="operator" type="redirect-action">
+                <param name="actionName">
+                    welcome
+                </param>
+                <param name="namespace">
+                    operator
+                </param>
+            </result>
+            <result name="admin" type="redirect-action">
+                <param name="actionName">
+                    welcome
+                </param>
+                <param name="namespace">
+                    admin
+                </param>
+            </result>
+        </action>
+    </package>
+    
+	
+	
+    <package name="ZL_admin" extends="struts-default" namespace="/admin">
+    	<global-results>
+            <result name="login">
+                /WEB-INF/JSP/login.jsp
+            </result>
+            <result name="exception">
+                /WEB-INF/JSP/error.jsp
+            </result>
+            <result name="error">
+                /WEB-INF/JSP/error.jsp
+            </result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="cn.artern.JAVAEE$ZLHock.exception" result="exception"/>
+        </global-exception-mappings>
+        <action name="welcome" class="loginSuccess">
+            <result name="success">
+                /WEB-INF/JSP/welcome.jsp
+            </result>
+        </action>
+		<action name="getByMonth" class="getByMonth">
+			<result name="success">
+				/WEB-INF/JSP/tableSelect.jsp
+			</result>	
+		</action>
+		<action name="getTable1" class="getByMonth" method="getTable1">
+			<result name="success">
+				/WEB-INF/JSP/table1.jsp
+			</result>
+		</action>
+		<action name="getTable2" class="getByMonth" method="getTable2">
+			<result name="success">
+				/WEB-INF/JSP/table2.jsp
+			</result>
+		</action>
+		<action name="getTable3" class="getByMonth" method="getTable3">
+			<result name="success">
+				/WEB-INF/JSP/table3.jsp
+			</result>
+		</action>
+		<action name="getTable4" class="getByMonth" method="getTable4">
+			<result name="success">
+				/WEB-INF/JSP/table4.jsp
+			</result>
+		</action>
+		<action name="getTable5" class="getByMonth" method="getTable5">
+			<result name="success">
+				/WEB-INF/JSP/table5.jsp
+			</result>
+		</action>
+		<action name="addUserList" class="addUser">
+			<result name="success">
+				/WEB-INF/JSP/addUser.jsp
+			</result>
+		</action>
+		<action name="doAddUser" class="addUser" method="addUser">
+			<result name="success">
+				/WEB-INF/JSP/addUserSuccess.jsp
+			</result>
+		</action>
+		<action name="addPawncheck" class="addUser" >
+			<result name="success">
+				/WEB-INF/JSP/addPawncheck.jsp
+			</result>
+		</action>
+		<action name="doAddPawncheck" class="addUser" method="addPawncheck">
+			<result name="success">
+				/WEB-INF/JSP/addPawncheckSuccess.jsp
+			</result>
+		</action>
+		<action name="BeSold" class="soldAction" >
+			<result name="success">
+				/WEB-INF/JSP/selectGoodslist.jsp
+			</result>
+		</action>
+		<action name="BeSoldOrBlank" class="soldAction" >
+			<result name="success">
+				/WEB-INF/JSP/chooseBOB.jsp
+			</result>
+		</action>
+		<action name="Blank" class="soldAction" >
+			<result name="success">
+				/WEB-INF/JSP/blank.jsp
+			</result>
+		</action>
+		<action name="BlankDo" class="soldAction" method="blank">
+			<result name="success">
+				/WEB-INF/JSP/success.jsp
+			</result>
+		</action>
+		<action name="getByPawncheck" class="soldAction" method="getByPawncheck">
+			<result name="success">
+				/WEB-INF/JSP/getGoodsList1.jsp
+			</result>
+		</action>
+		<action name="getByStatus" class="soldAction" method="getByStatus">
+			<result name="success">
+				/WEB-INF/JSP/getGoodsList1.jsp
+			</result>
+		</action>
+		<action name="doSold" class="soldAction" method="doSold">
+			<result name="success">
+				/WEB-INF/JSP/success.jsp
+			</result>
+		</action>
+    </package>
+    
+	
+	
+	
+    <package name="ZL_operator" extends="struts-default" namespace="/operator">
+    	<global-results>
+            <result name="login">
+                /WEB-INF/JSP/login.jsp
+            </result>
+            <result name="exception">
+                /WEB-INF/JSP/error.jsp
+            </result>
+            <result name="error">
+                /WEB-INF/JSP/error.jsp
+            </result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="cn.artern.JAVAEE$ZLHock.exception" result="exception"/>
+        </global-exception-mappings>
+        <action name="welcome" class="loginSuccess">
+            <result name="success">
+                /WEB-INF/JSP/welcome.jsp
+            </result>
+        </action>
+		<action name="addCustomerAndnext" class="createFirst" method="addCustomer">
+			<result name="success">
+				/WEB-INF/JSP/chooseLoanClass.jsp
+			</result>
+			<result name="re" type="redirect-action" >
+				createFirst?isnew=false
+			</result>	
+		</action>
+		<action name="createFirst" class="createFirst" >
+			<result name="success">
+				/WEB-INF/JSP/addCustomer.jsp
+			</result>
+		</action>
+		<action name="addGoodsInfo" class="createFirst" method="getTableByLoan">
+			<result name="success">
+				/WEB-INF/JSP/addGoodsInfo.jsp
+			</result>
+		</action>
+		<action name="addGoods" class="createFirst" method="addGoods">
+			<result name="addOver">
+				/WEB-INF/JSP/printP.jsp
+			</result>
+			<result name="addAlso">
+				/WEB-INF/JSP/chooseLoanClass.jsp
+			</result>
+		</action>
+		<action name="creatRecord" class="redeemPawncheck">
+			<result name="success">
+				/WEB-INF/JSP/inputPawncheck.jsp
+			</result>
+		</action>
+		<action name="getGoodsList" class="redeemPawncheck" method="getGoodsList">
+			<result name="success">
+				/WEB-INF/JSP/getGoodsList.jsp
+			</result>
+		</action>
+		<action name="addRecord" class="redeemPawncheck" method="addRecord">
+			<result name="success">
+				/WEB-INF/JSP/printR.jsp
+			</result>
+		</action>
+		<action name="redeemGoods" class="redeemPawncheck" method="doRedeem">
+			<result name="success">
+				/WEB-INF/JSP/success.jsp
+			</result>
+		</action>
+		<action name="printP" class="createFirst" method="printPawncheck">
+			<result name="success">
+				/WEB-INF/JSP/success.jsp
+			</result>
+		</action>
+		<action name="printR" class="redeemPawncheck" method="printRecord">
+			<result name="success">
+				/WEB-INF/JSP/success.jsp
+			</result>
+		</action>
+		<action name="getCusList" class="redeemPawncheck" method="getUserList">
+			<result name="success">
+				/WEB-INF/JSP/getCustomerMes.jsp
+			</result>
+		</action>
+		<action name="getPbyUserIdCard" class="redeemPawncheck" >
+			<result name="success">
+				/WEB-INF/JSP/getPbyUserIdcard.jsp
+			</result>
+		</action>
+    </package>
+    
+    
+    <package name="download" extends="struts-default">
+        <default-action-ref name="download"/>
+        <action name="DownRegedit" class="cn.artern.JAVAEE4ZLHock.action.system.DownRegedit">
+            <result name="success" type="stream">
+                <param name="contentType">
+                    application/x-msdownload;charset=UTF-8
+                </param>
+                <param name="inputName">
+                    targetFile
+                </param>
+                <param name="contentDisposition">
+                    attachment;filename="${downloadFileName}"
+                </param>
+                <param name="bufferSize">
+                    4096
+                </param>
+            </result>
+        </action>
+    </package>
+    
+</struts>

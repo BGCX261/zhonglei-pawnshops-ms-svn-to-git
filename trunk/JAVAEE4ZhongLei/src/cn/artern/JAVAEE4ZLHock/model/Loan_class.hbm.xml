@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    	
+<hibernate-mapping package="cn.artern.JAVAEE4ZLHock.model">
+	<class name="Loan_class" table="loan_class">
+		<id	name="class_name" type="string" column="class_name" length="50">
+			<generator class="assigned"/>
+		</id>
+		
+		<property name="class_type"	type="string" not-null="false"	length="50"	/>
+		
+		<set name="loan" inverse="true" >
+			<key column="class_name"/>
+			<one-to-many class="Loan" />
+		</set>
+	</class>
+</hibernate-mapping>

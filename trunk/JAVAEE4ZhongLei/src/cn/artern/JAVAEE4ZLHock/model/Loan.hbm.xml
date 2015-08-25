@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    	
+<hibernate-mapping package="cn.artern.JAVAEE4ZLHock.model">
+	<class name="Loan" table="loan">
+		<id	name="loan_id" type="integer">
+			<generator class="native"/>
+		</id>
+		
+		<property name="loan_name"	type="string" not-null="true"	length="50"	/>
+		<property name="loan_accy"	type="string" not-null="true"	length="200" />
+		<property name="loan_unit"	type="string" not-null="true"	length="50"	/>
+		
+		<set name="goods" inverse="true" fetch="join" lazy="true">
+			<key column="bname"/>
+			<one-to-many class="Goods" />
+		</set>
+		
+		<many-to-one name="loan_class" column="class_name" class="Loan_class" not-null="true" lazy="false"/>
+	
+	</class>
+</hibernate-mapping>
